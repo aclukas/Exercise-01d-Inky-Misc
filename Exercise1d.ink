@@ -13,27 +13,33 @@ This exercise will demonstrate the following in the example video:
 */
 
 
-VAR time = 0 //  0 Morning, 1 Noon, 2 Night
+VAR time = -1 //  0 Morning, 1 Noon, 2 Night
 
 
 
 
--> seashore
+-> east_beach
 
-== seashore ==
-You are sitting on the beach. 
+== east_beach ==
+You are on the east side of the beach. {&You hear waves softly crashing in the background.|You feel a light breeze through your hair.|You can smell the salt from the ocean.|The sand below your feet is soft.}
 
-+ [Wait] -> seashore
+It's {advance_time()}.
++ {time==2} [Pick up a starfish] -> starfish
++ [Stroll further up the beach] -> far_east_beach
++ [Stroll down the beach] -> west_beach
 -> DONE
 
-== beach2 ==
-This is further down the beach.
+== west_beach ==
+You are on the west side of the beach. {&A couple seagulls fly by overhead.|The noise of the wind and water are calming.|You watch as the waves wash away your footprints.}
 
-+ [Move back up the beach] -> seashore
+It's {advance_time()}.
++ { time == 1 } [Pick up some seashells]-> shells
++ [Stroll back up the beach] -> east_beach
++ [Stroll further down the beach] -> far_west_beach
 
 == shells ==
-You pick up the shells
--> beach2
+You pick up the shells.
++ [Go Back] -> west_beach
 
 == function advance_time ==
 
@@ -43,7 +49,7 @@ You pick up the shells
         - time > 2:
             ~ time = 0
     }    
-    /*
+    
     {    
         - time == 0:
             ~ return "Morning"
@@ -55,10 +61,36 @@ You pick up the shells
             ~ return "Night"
     
     }
-    */
+    
     
         
     ~ return time
     
     
     
+
+== starfish ==
+You pick up a starfish.
++ [Go Back] -> east_beach
+
+==driftwood==
+You pick up a {&small|large|medium} piece of driftwood.
++[Go Back]->far_west_beach
+
+==far_west_beach==
+You are on the far west side of the beach. {&You hear waves softly crashing in the background.|You feel a light breeze through your hair.|You can smell the salt from the ocean.|The sand below your feet is soft.}
+
+It's {advance_time()}.
++ {time==0}[Pick up driftwood]->driftwood
++ [Stroll back up the beach] -> west_beach
+
+==far_east_beach==
+You are on the far east side of the beach. {&A couple seagulls fly by overhead.|The noise of the wind and water are calming.|You watch as the waves wash away your footprints.}
+
+It's {advance_time()}.
++ {time==2}[Pick up beach glass]->beach_glass
++ [Stroll back down the beach]->east_beach
+
+==beach_glass==
+You pick up a {&green|red|brown|pink|blue} piece of beach glass.
++[Go Back]-> far_east_beach
