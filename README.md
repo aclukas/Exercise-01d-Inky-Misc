@@ -1,5 +1,5 @@
 # Exercise-01d-Inky-Misc
 
-# Your Name
+# Ainsley Lukasik
 
-# Your Github username
+# aclukas
